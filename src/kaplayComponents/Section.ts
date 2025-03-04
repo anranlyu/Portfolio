@@ -19,10 +19,10 @@ export default function makeSection(k:KAPLAYCtx, posVec2:Vec2, sectionName:strin
   ]);
 
   if (onCollide) {
+    const onCollideHandler = section.onCollide("player", () => {
       onCollide(section);
-    // const onCollideHandler = section.onCollide("player", () => {
-    //   onCollideHandler.cancel();
-    // });
+      onCollideHandler.cancel();
+    });
   }
 
   return section;

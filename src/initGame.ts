@@ -7,14 +7,18 @@ import { cameraZoomValueAtom, store } from "./store";
 import makeEmailIcon from "./kaplayComponents/EmailIcon";
 import makeSocialIcon from "./kaplayComponents/SocialIcon";
 import { makeAppear } from "./utils";
+// @ts-expect-error SkillIco will cause werid bug if it is ts
+import makeSkillIcon from "./kaplayComponents/SkillIcon.js";
+import makeWorkExperienceCard from "./kaplayComponents/WorkExperienceCard.js";
+
 
 export default async function initGame() {
     const generalData = await (await fetch("./configs/generalData.json")).json();
     const socialsData = await (await fetch("./configs/socialsData.json")).json();
-    // const skillsData = await (await fetch("./configs/skillsData.json")).json();
-    // const experiencesData = await (
-    //     await fetch("./configs/experiencesData.json")
-    // ).json();
+    const skillsData = await (await fetch("./configs/skillsData.json")).json();
+    const experiencesData = await (
+        await fetch("./configs/experiencesData.json")
+    ).json();
     // const projectsData = await (
     //     await fetch("./configs/projectsData.json")
     // ).json();
@@ -45,18 +49,16 @@ export default async function initGame() {
     k.loadFont("ibm-bold", "./fonts/IBMPlexSans-Bold.ttf");
     k.loadSprite("github-logo", "./logos/github-logo.png");
     k.loadSprite("linkedin-logo", "./logos/linkedin-logo.png");
-    k.loadSprite("youtube-logo", "./logos/youtube-logo.png");
-    k.loadSprite("x-logo", "./logos/x-logo.png");
     k.loadSprite("substack-logo", "./logos/substack-logo.png");
     k.loadSprite("javascript-logo", "./logos/js-logo.png");
     k.loadSprite("typescript-logo", "./logos/ts-logo.png");
     k.loadSprite("react-logo", "./logos/react-logo.png");
-    k.loadSprite("nextjs-logo", "./logos/nextjs-logo.png");
-    k.loadSprite("postgres-logo", "./logos/postgres-logo.png");
+    k.loadSprite("nodejs-logo", "./logos/nodejs-logo.png");
+    k.loadSprite("mongodb-logo", "./logos/mongodb-logo.png");
     k.loadSprite("html-logo", "./logos/html-logo.png");
     k.loadSprite("css-logo", "./logos/css-logo.png");
     k.loadSprite("tailwind-logo", "./logos/tailwind-logo.png");
-    k.loadSprite("python-logo", "./logos/python-logo.png");
+    k.loadSprite("java-logo", "./logos/java-logo.png");
     k.loadSprite("email-logo", "./logos/email-logo.png");
     k.loadSprite("sonic-js", "./projects/sonic-js.png");
     k.loadSprite("kirby-ts", "./projects/kirby-ts.png");
@@ -70,8 +72,8 @@ export default async function initGame() {
             return;
         }
 
-        k.setCamScale(0.8, 0.8);
-        store.set(cameraZoomValueAtom, 0.8);
+        k.setCamScale(0.7, 0.7);
+        store.set(cameraZoomValueAtom, 0.7);
     }
 
     setInitCamZoomValue();
@@ -106,10 +108,11 @@ export default async function initGame() {
 
     });
 
+    //Make About Section
     makeSection(
         k,
         k.vec2(k.center().x, k.center().y - 400),
-        "About",
+        generalData.section1Name,
         (parent: GameObj) => {
             const container = parent.add([k.pos(-805, -700), k.opacity(0)]);
             container.add([
@@ -154,13 +157,61 @@ export default async function initGame() {
                     socialData.description
                 );
             }
-
             makeAppear(k, container);
             makeAppear(k, socialContainer);
         }
     );
-    makeSection(k, k.vec2(k.center().x - 400, k.center().y), "Skills");
-    makeSection(k, k.vec2(k.center().x + 400, k.center().y), "Experience");
+
+    //make skills section
+    makeSection(
+        k,
+        k.vec2(k.center().x - 400, k.center().y),
+        generalData.section2Name,
+        (parent) => {
+        /* make the container independent of the section
+        so that the skill icons appear on top of every section's children.
+        so that when the skill icons are pushed around by the player
+        they always remain on top */
+        const container = k.add([
+            k.opacity(0),
+            k.pos(parent.pos.x - 300, parent.pos.y),
+        ]);
+
+        for (const skillData of skillsData) {
+            makeSkillIcon(
+            k,
+            container,
+            k.vec2(skillData.pos.x, skillData.pos.y),
+            skillData.logoData,
+            skillData.name
+            );
+        }
+
+        makeAppear(k, container);
+        }
+    );
+    
+    //make experience section
+    makeSection(
+        k,
+        k.vec2(k.center().x + 400, k.center().y),
+        generalData.section3Name,
+        (parent) => {
+        const container = parent.add([k.opacity(0), k.pos(0)]);
+        for (const experienceData of experiencesData) {
+            makeWorkExperienceCard(
+            k,
+            container,
+            k.vec2(experienceData.pos.x, experienceData.pos.y),
+            experienceData.cardHeight,
+            experienceData.roleData
+            );
+        }
+
+        makeAppear(k, container);
+        }
+    );
+
     makeSection(k, k.vec2(k.center().x, k.center().y + 400), "Projects");
 
     makePlayer(k, k.center(), 700)

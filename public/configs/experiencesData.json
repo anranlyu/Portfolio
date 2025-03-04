@@ -3,11 +3,11 @@
     "pos": { "x": 150, "y": -100 },
     "cardHeight": 250,
     "roleData": {
-      "title": "Front-End Software Engineer",
-      "description": "Enhanced [\\REDACTED\\]'s interactive design platform by building and optimizing prototyping tools, empowering designers to create high-fidelity experiences and bridging the gap between design and development.",
+      "title": "Community-Focused Full-stack Developer",
+      "description": "I  am developing a Chrome extension designed to enhance on-screen reading accessibility. This is a community-driven project, created in collaboration with the visually impaired community and Northeastern University.",
       "company": {
-        "name": "[\\REDACTED]",
-        "startDate": "2024",
+        "name": "[Northeastern University]",
+        "startDate": "Dec 2024",
         "endDate": "Present"
       }
     }
@@ -16,12 +16,12 @@
     "pos": { "x": 150, "y": 180 },
     "cardHeight": 250,
     "roleData": {
-      "title": "Product Software Engineer",
-      "description": "Improved [\\REDACTED]'s real-time design collaboration tool by developing new components and refining existing features, enhancing workflow efficiency and creativity for design teams worldwide.",
+      "title": "Software Engineer Intern",
+      "description": "I developed a web application that allows users to consult our medical AI. I was responsible for setting up the backend API and building the frontend web interface.",
       "company": {
-        "name": "[\\REDACTED]",
-        "startDate": "2021",
-        "endDate": "2023"
+        "name": "[Wedoctor Ltd]",
+        "startDate": "Jan 2023",
+        "endDate": "Sep 2023"
       }
     }
   }

@@ -28,18 +28,18 @@
   },
   {
     "pos": { "x": 0, "y": 200 },
-    "name": "Next.js",
+    "name": "Node.js",
     "logoData": {
-      "name": "nextjs-logo",
+      "name": "nodejs-logo",
       "width": 128,
       "height": 128
     }
   },
   {
     "pos": { "x": -200, "y": 200 },
-    "name": "PostgreSQL",
+    "name": "mongodb-logo",
     "logoData": {
-      "name": "postgres-logo",
+      "name": "mongodb-logo",
       "width": 128,
       "height": 128
     }
@@ -73,9 +73,9 @@
   },
   {
     "pos": { "x": -400, "y": 200 },
-    "name": "Python",
+    "name": "Java",
     "logoData": {
-      "name": "python-logo",
+      "name": "java-logo",
       "width": 128,
       "height": 128
     }

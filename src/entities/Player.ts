@@ -1,8 +1,12 @@
-import { KAPLAYCtx, Vec2 } from "kaplay";
+import { AnchorComp, AreaComp, BodyComp, GameObj, KAPLAYCtx, PosComp, ScaleComp, SpriteComp, Vec2 } from "kaplay";
 import { DIAGONAL_FACTOR } from "../constants";
 import { isEmailModalVisibleAtom, isProjectModalVisibleAtom, isSocialModalVisibleAtom, store } from "../store";
 
-export default function makePlayer(k:KAPLAYCtx, posVec2:Vec2, speed:number) {
+
+export default function makePlayer(k:KAPLAYCtx, posVec2:Vec2, speed:number):GameObj<SpriteComp | AnchorComp | PosComp | AreaComp | BodyComp | ScaleComp | {
+    direction: Vec2;
+    directionName: string;
+}> {
   const player = k.add([
     k.sprite("player", { anim: "walk-down" }),
     k.scale(8),
@@ -49,7 +53,6 @@ export default function makePlayer(k:KAPLAYCtx, posVec2:Vec2, speed:number) {
       );
     }
 
-
     if (
       store.get(isSocialModalVisibleAtom) ||
       store.get(isEmailModalVisibleAtom) ||
@@ -61,10 +64,8 @@ export default function makePlayer(k:KAPLAYCtx, posVec2:Vec2, speed:number) {
     player.direction = k.vec2(0, 0);
     const worldMousePos = k.toWorld(k.mousePos());
 
-      if (isMouseDown) {
-        console.log(k.mousePos(), worldMousePos);
-        
-      player.direction = worldMousePos.sub(player.pos).unit();
+    if (isMouseDown) {
+        player.direction = worldMousePos.sub(player.pos).unit();
     }
 
     if (
