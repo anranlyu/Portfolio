@@ -1,7 +1,8 @@
 import { GameObj } from "kaplay";
 import { PALETTE } from "./constants";
 import makePlayer from "./entities/Player";
-import makeSection from "./kaplayComponents/Section";
+// @ts-expect-error SkillIco will cause werid bug if it is ts
+import makeSection from "./kaplayComponents/Section.js";
 import makeKaplayCtx from "./kaplayCtx";
 import { cameraZoomValueAtom, store } from "./store";
 import makeEmailIcon from "./kaplayComponents/EmailIcon";
@@ -163,7 +164,7 @@ export default async function initGame() {
         k,
         k.vec2(k.center().x - 400, k.center().y),
         generalData.section2Name,
-        (parent) => {
+        (parent:GameObj) => {
         /* make the container independent of the section
         so that the skill icons appear on top of every section's children.
         so that when the skill icons are pushed around by the player
@@ -192,7 +193,7 @@ export default async function initGame() {
         k,
         k.vec2(k.center().x + 400, k.center().y),
         generalData.section3Name,
-        (parent) => {
+        (parent:GameObj) => {
         const container = parent.add([k.opacity(0), k.pos(0)]);
         for (const experienceData of experiencesData) {
             makeWorkExperienceCard(

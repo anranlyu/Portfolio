@@ -1,7 +1,6 @@
-import { GameObj, KAPLAYCtx, Vec2 } from "kaplay";
 import { PALETTE } from "../constants";
 
-export default function makeSection(k:KAPLAYCtx, posVec2:Vec2, sectionName:string, onCollide:((section: GameObj) => void) | null = null) {
+export default function makeSection(k, posVec2, sectionName, onCollide) {
   const section = k.add([
     k.rect(200, 200, { radius: 10 }),
     k.anchor("center"),
